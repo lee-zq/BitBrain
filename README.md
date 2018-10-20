@@ -1,3 +1,3 @@
-# python_worm
+## Network crawler by Python
 
-平时用到的一些python爬虫程序，挺好玩的~
+These python script files are fundamental and simple, for learning and communication.
