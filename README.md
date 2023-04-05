@@ -1,2 +1,1 @@
-## Python Network crawlers
-These python script files are fundamental and simple, for learning and communication.
+大脑是用来思考的，而不是用来记忆的
