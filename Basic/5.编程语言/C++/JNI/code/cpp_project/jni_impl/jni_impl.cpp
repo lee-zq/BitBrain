@@ -9,7 +9,11 @@
 JNIEXPORT jlong JNICALL Java_com_Student_create_1student
   (JNIEnv * env, jobject obj, jstring name, jint age, jint score){
     const char* c_name = env->GetStringUTFChars(name, 0);
+    if (c_name == NULL) {
+        return 0;
+    }
     INSTPTR student = create_student(c_name, age, score);
+    env->ReleaseStringUTFChars(name, c_name);
     return (jlong)student;
   }
 
@@ -44,5 +48,9 @@ JNIEXPORT void JNICALL Java_com_Student_set_1student
   (JNIEnv * env, jobject obj, jlong student, jstring name, jint age, jint score){
     INSTPTR handle = (INSTPTR)student;
     const char* c_name = env->GetStringUTFChars(name, 0);
+    if (c_name == NULL) {
+        return;
+    }
     set_student(handle, c_name, age, score);
+    env->ReleaseStringUTFChars(name, c_name);
   }
