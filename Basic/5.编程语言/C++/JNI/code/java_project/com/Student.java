@@ -20,4 +20,7 @@ public class Student {
     public native int get_student_age(long student);
 
     public native void set_student(long student, String name, int age, int score);
+
+    public native void update_student_info(long student, StudentInfo student_info);
+    public native void update_student_info2(long student, StudentInfo.Address[] address);
 }

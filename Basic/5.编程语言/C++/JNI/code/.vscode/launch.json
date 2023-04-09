@@ -6,6 +6,13 @@
             "name": "Test",
             "request": "launch",
             "mainClass": "com.Test",
+            "projectName": "code_1c36abca",
+        },
+        {
+            "type": "java",
+            "name": "Test",
+            "request": "launch",
+            "mainClass": "com.Test",
             "projectName": "jni_demo_1027eb1d"
         },
         {

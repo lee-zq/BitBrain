@@ -12,5 +12,16 @@ public class Test {
         
         student.print_student(stu);
         System.out.println("2.age: " + student.get_student_age(stu));
+
+        StudentInfo student_info = new StudentInfo();
+        System.out.println("复杂接口测试：");
+        student_info.print_student_info();
+        student.update_student_info(stu, student_info);
+        student_info.print_student_info();
+
+        // while(true) {
+        //     student.update_student_info(stu, student_info);
+        // }
+        System.out.println("Unit Test End!");
     }
 }

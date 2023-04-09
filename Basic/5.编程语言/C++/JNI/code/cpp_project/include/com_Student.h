@@ -39,6 +39,14 @@ JNIEXPORT jint JNICALL Java_com_Student_get_1student_1age
 JNIEXPORT void JNICALL Java_com_Student_set_1student
   (JNIEnv *, jobject, jlong, jstring, jint, jint);
 
+/*
+ * Class:     com_Student
+ * Method:    update_student_info
+ * Signature: (JLcom/StudentInfo;)V
+ */
+JNIEXPORT void JNICALL Java_com_Student_update_1student_1info
+  (JNIEnv *, jobject, jlong, jobject);
+
 #ifdef __cplusplus
 }
 #endif

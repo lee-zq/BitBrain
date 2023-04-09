@@ -11,6 +11,7 @@ public:
     string name;
     int age;
     int score;
+
     Student(string name, int age, int score) {
         this->name = name;
         this->age = age;
