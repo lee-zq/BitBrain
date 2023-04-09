@@ -117,44 +117,45 @@ JNIEXPORT void JNICALL Java_com_Student_update_1student_1info
   // 11.1 将C++类型的StudentInfo对象的schedule字段的值赋值给Java类型的StudentInfo对象的schedule字段
   // 11.2 遍历C++类型的StudentInfo对象的schedule字段的值
   for (int i = 0; i < 5; i++) {
+      // 11.3 获取Java类型的StudentInfo对象的schedule字段的值的第i行第j列的值
+      jintArray schedule_row = (jintArray)env->GetObjectArrayElement(schedule, i);
+      jint* schedule_row_ptr = env->GetIntArrayElements(schedule_row, 0);
       for (int j = 0; j < 6; j++) {
-          // 11.3 获取Java类型的StudentInfo对象的schedule字段的值的第i行第j列的值
-          jintArray schedule_row = (jintArray)env->GetObjectArrayElement(schedule, i);
-          jint* schedule_row_ptr = env->GetIntArrayElements(schedule_row, 0);
           // 11.4 将C++类型的StudentInfo对象的schedule字段的值的第i行第j列的值赋值给Java类型的StudentInfo对象的schedule字段的值的第i行第j列的值
           schedule_row_ptr[j] = student_info_cpp.schedule[i][j];
           // 11.5 释放Java类型的StudentInfo对象的schedule字段的值的第i行第j列的值
-          env->ReleaseIntArrayElements(schedule_row, schedule_row_ptr, 0);
       }
+      env->ReleaseIntArrayElements(schedule_row, schedule_row_ptr, 0);
   }
 
   // 设置家庭住址
   // 12. 获取StudentInfo类中的address字段
-  jfieldID address_field = env->GetFieldID(student_info_class, "address", "J[Lcom/StudentInfo/Address;");
+  jfieldID address_field = env->GetFieldID(student_info_class, "address", "[Lcom/StudentInfo$Address;");
   // 13. 获取StudentInfo类中的address字段的值
   jobjectArray address = (jobjectArray)env->GetObjectField(student_info, address_field); 
+  int address_len = env->GetArrayLength(address);
   // 14. 将C++类型的StudentInfo对象的address字段的值赋给Java类型的StudentInfo对象的address字段的值
   // 14.1 遍历C++类型的StudentInfo对象的address字段的值
-  // for (int i = 0; i < 2; i++) {
-  //     // 14.2 获取Java类型的StudentInfo对象的address字段的值的第i个元素
-  //     jobject address_item = env->GetObjectArrayElement(address, i);
-  //     // 14.3 获取Address类
-  //     jclass address_class = env->GetObjectClass(address_item);
-  //     jfieldID area_field = env->GetFieldID(address_class, "area", "I");
-  //     jfieldID block_field = env->GetFieldID(address_class, "block", "I");
-  //     jfieldID house_num_field = env->GetFieldID(address_class, "house_num", "I");
+  for (int i = 0; i < address_len; i++) {
+      // 14.2 获取Java类型的StudentInfo对象的address字段的值的第i个元素
+      jobject address_item = env->GetObjectArrayElement(address, i);
+      // 14.3 获取Address类
+      jclass address_class = env->GetObjectClass(address_item);
+      jfieldID area_field = env->GetFieldID(address_class, "area", "I");
+      jfieldID block_field = env->GetFieldID(address_class, "block", "I");
+      jfieldID house_num_field = env->GetFieldID(address_class, "house_num", "I");
 
-  //     jstring area = (jstring)env->GetObjectField(address_item, area_field);
-  //     jstring block = (jstring)env->GetObjectField(address_item, block_field);
-  //     jstring house_num = (jstring)env->GetObjectField(address_item, house_num_field);
+      // jstring area = (jstring)env->GetObjectField(address_item, area_field);
+      // jstring block = (jstring)env->GetObjectField(address_item, block_field);
+      // jstring house_num = (jstring)env->GetObjectField(address_item, house_num_field);
 
-  //     // 14.4 将C++类型的StudentInfo对象的字段赋值给Java类型的StudentInfo对象的address字段
-  //     env->SetIntField(address_item, area_field, student_info_cpp.address[i].area);
-  //     env->SetIntField(address_item, block_field, student_info_cpp.address[i].block);
-  //     env->SetIntField(address_item, house_num_field, student_info_cpp.address[i].house_num);
-  //     // 释放局部引用
-  //     env->DeleteLocalRef(address_item);
-  // }
+      // 14.4 将C++类型的StudentInfo对象的字段赋值给Java类型的StudentInfo对象的address字段
+      env->SetIntField(address_item, area_field, student_info_cpp.address[i].area);
+      env->SetIntField(address_item, block_field, student_info_cpp.address[i].block);
+      env->SetIntField(address_item, house_num_field, student_info_cpp.address[i].house_num);
+      // 释放局部引用
+      env->DeleteLocalRef(address_item);
+  }
   // 释放局部引用
   env->DeleteLocalRef(student_info_class);
   env->DeleteLocalRef(student_info);
